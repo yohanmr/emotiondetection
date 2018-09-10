@@ -1,6 +1,6 @@
-# emotiondetection
+# Emotiondetection
 
-## Dependancies
+## Dependencies
     openCV version 3 or higher.
     Tensorflow.
 
