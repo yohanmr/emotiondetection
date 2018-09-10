@@ -4,7 +4,7 @@ import os
 size = 4
 
 # We load the xml file
-classifier = cv2.CascadeClassifier("C:\\Users\\ramakriy\\AppData\\Local\\Programs\\Python\\Python35\\Lib\\site-packages\\cv2\\data\\haarcascade_frontalface_alt.xml")
+classify = cv2.CascadeClassifier("C:\\Users\\ramakriy\\AppData\\Local\\Programs\\Python\\Python35\\Lib\\site-packages\\cv2\\data\\haarcascade_frontalface_alt.xml")
 
 webcam = cv2.VideoCapture(0)
 
@@ -12,7 +12,7 @@ while True:
     (rval, im) = webcam.read()
     im=cv2.flip(im,1,0)
     mini = cv2.resize(im, (int(im.shape[1]/size), int(im.shape[0]/size)))
-    faces = classifier.detectMultiScale(mini)
+    faces = classify.detectMultiScale(mini)
     # Draw rectangles around each face
     for f in faces:
         (x, y, w, h) = [v * size for v in f]
