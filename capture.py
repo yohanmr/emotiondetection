@@ -20,7 +20,7 @@ while True:
         sub_face = im[y:y+h, x:x+w]
         FaceFileName = "test.jpg" #Saving the current image from the webcam for testing.
         cv2.imwrite(FaceFileName, sub_face)
-        text = classifier.main(FaceFileName)# Getting the Result from the label_image file, i.e., Classification Result.
+        text = classifier.main(FaceFileName)# Getting the Result from the Classification Result.
         text = text.title()
         font = cv2.FONT_HERSHEY_TRIPLEX
         cv2.putText(im, text,(x+w,y), font, 1, (0,0,255), 2)
