@@ -11,4 +11,4 @@
 
 ## Step 2: The code capture is just for video capture which then passes it to classifier which returns the classification. After generating the labels and graphs just run: python capture.py.
 
-## Notes: In capture.py make sure to edit the path for the face detection xml. There are two in my repositories for frontal face, the others can be found in your openCV directory, follow the same path format as in the code. And make sure to use "//".
+## Notes: In capture.py make sure to edit the path for the face detection xml. There are two in my repository for frontal face, the others can be found in your openCV directory, follow the same path format as in the code. And make sure to use "//".

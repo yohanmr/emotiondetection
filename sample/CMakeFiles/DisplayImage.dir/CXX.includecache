@@ -1,0 +1,22 @@
+#IncludeRegexLine: ^[ 	]*#[ 	]*(include|import)[ 	]*[<"]([^">]+)([">])
+
+#IncludeRegexScan: ^.*$
+
+#IncludeRegexComplain: ^$
+
+#IncludeRegexTransform: 
+
+/home/yohan/emotiondetection/sample/DisplayImage.cpp
+opencv2/objdetect.hpp
+/home/yohan/emotiondetection/sample/opencv2/objdetect.hpp
+opencv2/videoio.hpp
+/home/yohan/emotiondetection/sample/opencv2/videoio.hpp
+opencv2/highgui.hpp
+/home/yohan/emotiondetection/sample/opencv2/highgui.hpp
+opencv2/imgproc.hpp
+/home/yohan/emotiondetection/sample/opencv2/imgproc.hpp
+iostream
+-
+stdio.h
+-
+
