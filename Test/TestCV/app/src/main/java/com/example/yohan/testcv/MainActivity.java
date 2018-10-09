@@ -96,7 +96,7 @@ public class MainActivity extends AppCompatActivity implements CameraBridgeViewB
      * A native method that is implemented by the 'native-lib' native library,
      * which is packaged with this application.
      */
-    public native String stringFromJNI();
+    public native void ctranslate(long matAddress);
 
     @Override
     public void onCameraViewStarted(int width, int height) {
@@ -113,7 +113,8 @@ public class MainActivity extends AppCompatActivity implements CameraBridgeViewB
     @Override
     public Mat onCameraFrame(CameraBridgeViewBase.CvCameraViewFrame inputFrame) {
         mRGBa = inputFrame.rgba();
-        
+        ctranslate(mRGBa.getNativeObjAddr());
         return null;
     }
+
 }
