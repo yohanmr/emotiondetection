@@ -114,7 +114,7 @@ public class MainActivity extends AppCompatActivity implements CameraBridgeViewB
     public Mat onCameraFrame(CameraBridgeViewBase.CvCameraViewFrame inputFrame) {
         mRGBa = inputFrame.rgba();
         ctranslate(mRGBa.getNativeObjAddr());
-        return null;
+        return mRGBa;
     }
 
 }

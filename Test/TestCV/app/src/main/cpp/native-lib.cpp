@@ -1,7 +1,7 @@
 #include <jni.h>
 #include "opencv2/objdetect/objdetect.hpp"
 #include "opencv2/videoio.hpp"
-#include "opencv2/highgui.hpp"
+#include "opencv2/highgui/highgui.hpp"
 #include "opencv2/imgproc/imgproc.hpp"
 #include <iostream>
 #include <stdio.h>
@@ -16,11 +16,23 @@ extern "C"
     {
         Mat &frame = *(Mat *) matAddress;
         if( !face_cascade.load( face_cascade_name ) )
-        printf("--(!)Error loading face cascade\n");
-        std::vector<Rect> faces;
-        Mat frame_gray;
-        cvtColor( frame, frame_gray, COLOR_BGR2GRAY );
-        equalizeHist( frame_gray, frame_gray );
+        {
+            printf("--(!)Error loading face cascade\n");
+            std::vector<Rect> faces;
+            Mat frame_gray;
+            cvtColor( frame, frame_gray, COLOR_BGR2GRAY );
+            equalizeHist( frame_gray, frame_gray );
+            face_cascade.detectMultiScale( frame_gray, faces, 1.1, 2, 0|CASCADE_SCALE_IMAGE, Size(30, 30) );
+            for ( size_t i = 0; i < faces.size(); i++ )
+            {
+                Point p1( faces[i].x , faces[i].y );
+                Point p2(faces[i].x+faces[i].width,faces[i].y+faces[i].height);
+                rectangle( frame, p1, p2, Scalar( 255, 0, 255 ), 4, 8, 0 );
+
+
+            }
+
+        }
 
 
     }

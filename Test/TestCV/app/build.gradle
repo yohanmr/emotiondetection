@@ -11,7 +11,10 @@ android {
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
         externalNativeBuild {
             cmake {
-                cppFlags ""
+                cppFlags "-frtti -fexceptions"
+                abiFilters 'x86', 'x86_64', 'armeabi-v7a', 'arm64-v8a'
+                arguments '-DANDROID_TOOLCHAIN=clang',
+                        '-DANDROID_STL=gnustl_static'
             }
         }
     }
@@ -26,7 +29,7 @@ android {
             path "CMakeLists.txt"
         }
     }
-    sourceSets { main { jni.srcDirs = ['src/main/jni', 'src/main/jniLibs/'] } }
+    sourceSets { main { jni.srcDirs = ['src/main/jniLibs/'] } }
 }
 
 dependencies {
