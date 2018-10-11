@@ -1,0 +1,4 @@
+#Thu Oct 11 07:44:09 IST 2018
+base.0=/home/yohan/emotiondetection/Test/testnew/openCVLibrary300/build/intermediates/transforms/dexMerger/debug/0
+path.0=classes.dex
+renamed.0=classes.dex
