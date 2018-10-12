@@ -7,16 +7,18 @@
 #include <stdio.h>
 using namespace std;
 using namespace cv;
-String face_cascade_name = "/storage/sdcard/Download/haarcascade_frontalface_alt-1.xml"; //this path will have to be the phone path
 CascadeClassifier face_cascade;
 extern "C"
 {
     void JNICALL Java_com_example_yohan_testcv_MainActivity_ctranslate(JNIEnv *env, jobject instance,
-                                                                               jlong matAddress)
+                                                                               jlong matAddress,jstring path)
     {
+        char const * cpath;
+
+        cpath = env->GetStringUTFChars(  path , NULL ) ;
         Mat &frame = *(Mat *) matAddress;
-        face_cascade.load((face_cascade_name));
-        if( !face_cascade.load( face_cascade_name ) )
+        face_cascade.load((cpath));
+        if( !face_cascade.load( cpath ) )
         {
             printf("--(!)Error loading face cascade\n");
             Point p1(0,0);
