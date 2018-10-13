@@ -5,7 +5,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.SurfaceView;
 import android.widget.TextView;
-
+import android.graphics.Bitmap;
 import org.opencv.android.BaseLoaderCallback;
 import org.opencv.android.CameraBridgeViewBase;
 import org.opencv.android.JavaCameraView;
@@ -13,39 +13,15 @@ import org.opencv.android.LoaderCallbackInterface;
 import org.opencv.android.OpenCVLoader;
 import org.opencv.core.CvType;
 import org.opencv.core.Mat;
+import org.opencv.android.Utils;
 import org.opencv.objdetect.CascadeClassifier;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 
-import java.io.File;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.InputStream;
 
-import org.opencv.android.BaseLoaderCallback;
-import org.opencv.android.CameraBridgeViewBase.CvCameraViewFrame;
-import org.opencv.android.LoaderCallbackInterface;
-import org.opencv.android.OpenCVLoader;
-import org.opencv.core.Core;
-import org.opencv.core.Mat;
-import org.opencv.core.MatOfRect;
-import org.opencv.core.Rect;
-import org.opencv.core.Scalar;
-import org.opencv.core.Size;
-import org.opencv.android.CameraBridgeViewBase;
-import org.opencv.android.CameraBridgeViewBase.CvCameraViewListener2;
-import org.opencv.objdetect.CascadeClassifier;
-import org.opencv.imgproc.Imgproc;
-
-import android.app.Activity;
 import android.content.Context;
-import android.os.Bundle;
-import android.util.Log;
-import android.view.Menu;
-import android.view.MenuItem;
-import android.view.WindowManager;
 
 
 public class MainActivity extends AppCompatActivity implements CameraBridgeViewBase.CvCameraViewListener2 {
@@ -90,6 +66,7 @@ public class MainActivity extends AppCompatActivity implements CameraBridgeViewB
         }
     }
     Mat mRGBa;
+    Mat face;
     // Used to load the 'native-lib' library on application startup.
     static {
         System.loadLibrary("native-lib");
@@ -171,11 +148,12 @@ public class MainActivity extends AppCompatActivity implements CameraBridgeViewB
      * A native method that is implemented by the 'native-lib' native library,
      * which is packaged with this application.
      */
-    public native void ctranslate(long matAddress,String mypath);
+    public native int ctranslate(long matAddress,String mypath,long faceAddress);
 
     @Override
     public void onCameraViewStarted(int width, int height) {
         mRGBa = new Mat(height,width,CvType.CV_8UC4);
+        face = new Mat(height,width,CvType.CV_8UC4);
 
     }
 
@@ -188,9 +166,21 @@ public class MainActivity extends AppCompatActivity implements CameraBridgeViewB
     @Override
     public Mat onCameraFrame(CameraBridgeViewBase.CvCameraViewFrame inputFrame) {
         mRGBa = inputFrame.rgba();
+
         load_cascade();
-        ctranslate(mRGBa.getNativeObjAddr(),path);
-        return mRGBa;
+        int success = ctranslate(mRGBa.getNativeObjAddr(),path,face.getNativeObjAddr());
+        if (success==0)
+        {
+             //don't call the classifier, do what you want to say no face.
+        }
+        else {
+            Bitmap facebitmap;
+            facebitmap = Bitmap.createBitmap(face.width(),face.height(),Bitmap.Config.ARGB_8888);
+            Utils.matToBitmap(face,facebitmap);
+
+            //call the classifier giving it facebitmap
+        }
+        return null;
     }
 
 }
